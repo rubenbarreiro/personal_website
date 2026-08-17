@@ -1,0 +1,64 @@
+schema: spec-driven
+
+# Project context
+# This is shown to AI when creating artifacts.
+context: |
+  Tech Stack:
+    - Frontend: React (v18.2.0), Vite (v4.4.5), TypeScript (v5.0.2)
+    - Styling: react-jss (v10.10.0) for CSS-in-JS
+    - Node: v16.15.1 (per .nvmrc)
+    - Package Manager: npm
+    - Linting: ESLint with @typescript-eslint, react-hooks, react-refresh plugins
+    - Formatting: Prettier (2-space indent, single quotes, 150 print width)
+  Project Structure:
+    - Single-page application (no routing)
+    - Entry: index.html → src/main.tsx → App.tsx → components/Main/
+    - Assets: src/assets/ (profile image)
+    - All styles in component-local styles.tsx files using createUseStyles from react-jss
+  Conventions & Design:
+    - Clean, professional, and minimalist personal landing page.
+    - Two-column split layout on desktop:
+      - Left column (20% width): profile image, name, title, contact links, LinkedIn, GitHub.
+      - Right column (80% width): detailed introduction, proficient tech stacks, current interests.
+    - Responsive design needed (current implementation has minimal breakpoints).
+    - Type-safety with TypeScript, strict mode enabled, no warnings or linter errors.
+    - Keep dependencies minimal; prefer react-jss or simple components.
+  Build & Quality:
+    - Build: `tsc && vite build`
+    - Lint: `eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0`
+    - No test framework currently configured.
+
+# Per-artifact rules
+rules:
+  proposal:
+    - Keep proposals concise (1-2 pages).
+    - Focus on the "why" not the "how".
+    - Clearly list new and modified capabilities.
+  specs:
+    - Use SHALL/MUST for normative requirements.
+    - Each requirement MUST have at least one scenario.
+    - Scenarios use WHEN/THEN format with exactly 4 hashtags.
+    - Keep specs behavior-focused, not implementation-focused.
+  design:
+    - Reference proposal for motivation instead of restating it.
+    - Reference specs for requirements instead of restating them.
+    - Focus on architecture and approach, not line-by-line implementation.
+    - Include alternatives considered for key decisions.
+  tasks:
+    - Group related tasks under numbered headings.
+    - Each task MUST be a checkbox starting with "- [ ]".
+    - Tasks should be small enough to complete in one session.
+    - Order tasks by dependency.
+
+# Per-operation guidance
+operations:
+  apply:
+    guidance:
+      - Run `npm run lint` after each significant change to verify no errors.
+      - Run `npm run build` to verify TypeScript compilation succeeds.
+      - Keep changes minimal and focused on the task at hand.
+      - "Use conventional commit messages (enforced by commitlint): <type>(<scope>): <description>. Types: feat, fix, docs, style, refactor, test, chore, ci, perf, build."
+  archive:
+    guidance:
+      - Verify all tasks are completed before archiving.
+      - Ensure specs are synced if capabilities were modified.
