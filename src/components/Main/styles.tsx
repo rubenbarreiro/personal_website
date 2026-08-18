@@ -14,6 +14,8 @@ const styles = createUseStyles({
     width: '100%',
     height: '100%',
     display: 'flex',
+    gap: '20px',
+    padding: '20px',
     '@media (max-width: 768px)': {
       flexDirection: 'column',
     },
@@ -21,16 +23,24 @@ const styles = createUseStyles({
   summary: {
     width: '20%',
     textAlign: 'center',
+    backgroundColor: '#16213e',
+    borderRadius: '12px',
+    padding: '2rem 1rem',
+    alignSelf: 'flex-start',
+    position: 'sticky',
+    top: '20px',
     '@media (max-width: 768px)': {
       width: '100%',
-      padding: '2rem 1rem',
+      position: 'static',
     },
   },
   content: {
     width: '80%',
+    backgroundColor: '#0f3460',
+    borderRadius: '12px',
+    padding: '2rem',
     '@media (max-width: 768px)': {
       width: '100%',
-      padding: '1rem',
     },
   },
   contentText: {
