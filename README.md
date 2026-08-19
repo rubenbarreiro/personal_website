@@ -14,12 +14,13 @@ A simple portfolio-style landing page built to improve my React skills.
 - [React](https://react.dev/) - UI library
 - [Vite](https://vitejs.dev/) - Build tool and dev server
 - [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
-- [JSS](https://cssinjs.org/) - CSS-in-JS styling
+- [Material UI](https://mui.com/) - Component library with dark theme
 
 ## AI Stack
 
 - [OpenCode](https://opencode.ai) - AI coding assistant for development workflow
 - [OpenSpec](https://github.com/anomalyco/openspec) - Spec-driven development for planning and tracking changes
+- Model: opencode/big-pickle - Used for all code generation and refactoring
 
 ## Getting Started
 
