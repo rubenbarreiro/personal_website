@@ -1,6 +1,6 @@
 # My Personal Landing Page
 
-A simple portfolio-style landing page built to improve my React skills.
+A simple portfolio-style landing page built to improve my React(and nowadays, AI) skills.
 
 ## Features
 
