@@ -1,5 +1,16 @@
-import { NavLink, Routes, Route, Navigate } from 'react-router-dom';
-import useStyles from './styles';
+import { useState } from 'react';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
 import selfie from '../../assets/selfie.jpg';
 
 interface WorkEntry {
@@ -72,117 +83,204 @@ const workHistory: WorkEntry[] = [
 ];
 
 export default function Main() {
-  const styles = useStyles();
+  const [tabValue, setTabValue] = useState(0);
+
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
+  };
 
   return (
-    <div className={styles.mainContainer}>
-      <div className={styles.summary}>
-        <img src={selfie} className={styles.profileImage} />
-        <br />
-        <>
-          <p className={styles.contentText}>
-            <b>Ruben Dario Barreiro Moncayo</b>
-            <br />
-            <i>NodeJS Backend Developer</i>
-            <br />
-            <br />
-            <a href="https://www.linkedin.com/in/ruben-barreiro-2a46b294/" target="_blank">
+    <Box
+      sx={{
+        display: 'flex',
+        gap: '20px',
+        padding: '20px',
+        width: '100%',
+        minHeight: '100vh',
+        boxSizing: 'border-box',
+        flexDirection: { xs: 'column', md: 'row' },
+      }}
+    >
+      <Card
+        sx={{
+          width: { xs: '100%', md: '20%' },
+          textAlign: 'center',
+          bgcolor: 'secondary.main',
+          alignSelf: { md: 'flex-start' },
+          position: { md: 'sticky' },
+          top: { md: '20px' },
+          flexShrink: 0,
+        }}
+      >
+        <CardContent>
+          <Avatar
+            src={selfie}
+            alt="Ruben Dario Barreiro Moncayo"
+            sx={{
+              width: { xs: 200, md: '80%' },
+              height: { xs: 200, md: 'auto' },
+              mx: 'auto',
+              borderRadius: '50%',
+            }}
+            variant="rounded"
+          />
+          <Typography variant="h6" sx={{ mt: 2, fontWeight: 'bold' }}>
+            Ruben Dario Barreiro Moncayo
+          </Typography>
+          <Typography variant="body1" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
+            NodeJS Backend Developer
+          </Typography>
+          <Box sx={{ mt: 2 }}>
+            <Link
+              href="https://www.linkedin.com/in/ruben-barreiro-2a46b294/"
+              target="_blank"
+              rel="noopener"
+              sx={{
+                mx: 1,
+                color: '#90caf9',
+                '&:hover': { color: '#bbdefb' },
+              }}
+            >
               LinkedIn
-            </a>
-            &nbsp; | &nbsp;
-            <a href="https://github.com/rubenbarreiro" target="_blank">
+            </Link>
+            |
+            <Link
+              href="https://github.com/rubenbarreiro"
+              target="_blank"
+              rel="noopener"
+              sx={{
+                mx: 1,
+                color: '#90caf9',
+                '&:hover': { color: '#bbdefb' },
+              }}
+            >
               Github
-            </a>
-            <br />
-            <br />
-            contact me at: <a href="mailto:ruben.barreirom@gmail.com">ruben.barreirom@gmail.com</a>
-          </p>
-        </>
-      </div>
+            </Link>
+          </Box>
+          <Typography variant="body2" sx={{ mt: 2, color: 'text.secondary' }}>
+            contact me at:{' '}
+            <Link
+              href="mailto:ruben.barreirom@gmail.com"
+              sx={{
+                color: '#90caf9',
+                '&:hover': { color: '#bbdefb' },
+              }}
+            >
+              ruben.barreirom@gmail.com
+            </Link>
+          </Typography>
+        </CardContent>
+      </Card>
 
-      <div className={styles.content}>
-        <div className={styles.tabBar}>
-          <NavLink
-            to="/about"
-            className={({ isActive }) =>
-              `${styles.tab} ${isActive ? styles.tabActive : styles.tabInactive}`
-            }
+      <Card
+        sx={{
+          width: { xs: '100%', md: '80%' },
+          bgcolor: 'primary.main',
+          flexGrow: 1,
+          maxHeight: { md: '80vh' },
+          overflow: 'auto',
+          pb: 2,
+        }}
+      >
+        <CardContent>
+          <Tabs
+            value={tabValue}
+            onChange={handleTabChange}
+            sx={{
+              borderBottom: 2,
+              borderColor: 'divider',
+              mb: 2,
+              '& .MuiTab-root': {
+                color: 'rgba(255, 255, 255, 0.5)',
+                fontWeight: 'bold',
+                fontSize: '1.1rem',
+                '&.Mui-selected': {
+                  color: '#fff',
+                  borderBottom: 2,
+                  borderColor: 'primary.main',
+                },
+              },
+            }}
           >
-            About me
-          </NavLink>
-          <NavLink
-            to="/work"
-            className={({ isActive }) =>
-              `${styles.tab} ${isActive ? styles.tabActive : styles.tabInactive}`
-            }
-          >
-            Work Experience
-          </NavLink>
-        </div>
+            <Tab label="About me" />
+            <Tab label="Work Experience" />
+          </Tabs>
 
-        <Routes>
-          <Route
-            path="/"
-            element={<Navigate to="/about" replace />}
-          />
-          <Route
-            path="/about"
-            element={
-              <div className={styles.aboutContent}>
-                <p className={styles.aboutIntro}>
-                  Hello there, I'm Ruben Barreiro — mostly Backend Developer; FullStack Developer when really needed. Currently working at Globant.
-                </p>
+          {tabValue === 0 && (
+            <Box>
+              <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.6, color: 'text.secondary' }}>
+                Hello there, I'm Ruben Barreiro — mostly Backend Developer; FullStack Developer when
+                really needed. Currently working at Globant.
+              </Typography>
 
-                <div className={styles.aboutSection}>
-                  <h3 className={styles.aboutSectionTitle}>Proficient in</h3>
-                  <ul className={styles.aboutList}>
-                    <li>JavaScript</li>
-                    <li>TypeScript</li>
-                    <li>NodeJS</li>
-                    <li>AWS</li>
-                  </ul>
-                </div>
-
-                <div className={styles.aboutSection}>
-                  <h3 className={styles.aboutSectionTitle}>Frontend</h3>
-                  <ul className={styles.aboutList}>
-                    <li>ReactJS (yes it's not a framework but you do you)</li>
-                  </ul>
-                </div>
-
-                <div className={styles.aboutSection}>
-                  <h3 className={styles.aboutSectionTitle}>Currently learning</h3>
-                  <ul className={styles.aboutList}>
-                    <li>NestJS</li>
-                    <li>Memcached</li>
-                  </ul>
-                </div>
-              </div>
-            }
-          />
-          <Route
-            path="/work"
-            element={
-              <div className={styles.workHistory}>
-                {workHistory.map((entry, index) => (
-                  <div key={index} className={styles.workEntry}>
-                    <div className={styles.workHeader}>
-                      <span className={styles.workRole}>{entry.role}</span>
-                      {entry.company && <span className={styles.workCompany}> @ {entry.company}</span>}
-                    </div>
-                    <div className={styles.workPeriod}>{entry.period}</div>
-                    <ul className={styles.workHighlights}>
-                      {entry.highlights.map((highlight, i) => (
-                        <li key={i}>{highlight}</li>
-                      ))}
-                    </ul>
-                  </div>
+              <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
+                Proficient in
+              </Typography>
+              <List dense sx={{ pl: 2, mb: 2 }}>
+                {['JavaScript', 'TypeScript', 'NodeJS', 'AWS'].map((item) => (
+                  <ListItem key={item} sx={{ py: 0 }}>
+                    <ListItemText primary={`- ${item}`} />
+                  </ListItem>
                 ))}
-              </div>
-            }
-          />
-        </Routes>
-      </div>
-    </div>
+              </List>
+
+              <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
+                Frontend
+              </Typography>
+              <List dense sx={{ pl: 2, mb: 2 }}>
+                <ListItem sx={{ py: 0 }}>
+                  <ListItemText primary="- ReactJS (yes it's not a framework but you do you)" />
+                </ListItem>
+              </List>
+
+              <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
+                Currently learning
+              </Typography>
+              <List dense sx={{ pl: 2 }}>
+                {['NestJS', 'Memcached'].map((item) => (
+                  <ListItem key={item} sx={{ py: 0 }}>
+                    <ListItemText primary={`- ${item}`} />
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+          )}
+
+          {tabValue === 1 && (
+            <Box>
+              {workHistory.map((entry, index) => (
+                <Box key={index}>
+                  <Box sx={{ mb: 1 }}>
+                    <Typography variant="h6" component="span" sx={{ fontWeight: 'bold' }}>
+                      {entry.role}
+                    </Typography>
+                    {entry.company && (
+                      <Typography
+                        component="span"
+                        sx={{ color: 'text.secondary', fontWeight: 'normal' }}
+                      >
+                        {' '}
+                        @ {entry.company}
+                      </Typography>
+                    )}
+                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                      {entry.period}
+                    </Typography>
+                  </Box>
+                  <List dense sx={{ pl: 2, mb: 1 }}>
+                    {entry.highlights.map((highlight, i) => (
+                      <ListItem key={i} sx={{ py: 0 }}>
+                        <ListItemText primary={`- ${highlight}`} />
+                      </ListItem>
+                    ))}
+                  </List>
+                  {index < workHistory.length - 1 && <Divider sx={{ mb: 2 }} />}
+                </Box>
+              ))}
+            </Box>
+          )}
+        </CardContent>
+      </Card>
+    </Box>
   );
 }
