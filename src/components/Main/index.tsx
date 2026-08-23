@@ -12,12 +12,19 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import selfie from '../../assets/selfie.jpg';
+import ThemeToggle from './ThemeToggle';
+import { ThemeMode } from '../../theme';
 
 interface WorkEntry {
   role: string;
   company: string;
   period: string;
   highlights: string[];
+}
+
+interface MainProps {
+  mode: ThemeMode;
+  onToggleTheme: () => void;
 }
 
 const workHistory: WorkEntry[] = [
@@ -82,7 +89,7 @@ const workHistory: WorkEntry[] = [
   },
 ];
 
-export default function Main() {
+export default function Main({ mode, onToggleTheme }: MainProps) {
   const [tabValue, setTabValue] = useState(0);
 
   const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
@@ -104,15 +111,13 @@ export default function Main() {
       <Card
         sx={{
           width: { xs: '100%', md: '20%' },
+          height: { md: '80vh' },
           textAlign: 'center',
           bgcolor: 'secondary.main',
-          alignSelf: { md: 'flex-start' },
-          position: { md: 'sticky' },
-          top: { md: '20px' },
           flexShrink: 0,
         }}
       >
-        <CardContent>
+        <CardContent sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
           <Avatar
             src={selfie}
             alt="Ruben Dario Barreiro Moncayo"
@@ -135,49 +140,31 @@ export default function Main() {
               href="https://www.linkedin.com/in/ruben-barreiro-2a46b294/"
               target="_blank"
               rel="noopener"
-              sx={{
-                mx: 1,
-                color: '#90caf9',
-                '&:hover': { color: '#bbdefb' },
-              }}
+              sx={{ mx: 1, color: 'info.main' }}
             >
               LinkedIn
             </Link>
             |
-            <Link
-              href="https://github.com/rubenbarreiro"
-              target="_blank"
-              rel="noopener"
-              sx={{
-                mx: 1,
-                color: '#90caf9',
-                '&:hover': { color: '#bbdefb' },
-              }}
-            >
+            <Link href="https://github.com/rubenbarreiro" target="_blank" rel="noopener" sx={{ mx: 1, color: 'info.main' }}>
               Github
             </Link>
           </Box>
           <Typography variant="body2" sx={{ mt: 2, color: 'text.secondary' }}>
             contact me at:{' '}
-            <Link
-              href="mailto:ruben.barreirom@gmail.com"
-              sx={{
-                color: '#90caf9',
-                '&:hover': { color: '#bbdefb' },
-              }}
-            >
+            <Link href="mailto:ruben.barreirom@gmail.com" sx={{ color: 'info.main' }}>
               ruben.barreirom@gmail.com
             </Link>
           </Typography>
+          <ThemeToggle mode={mode} onToggle={onToggleTheme} />
         </CardContent>
       </Card>
 
       <Card
         sx={{
           width: { xs: '100%', md: '80%' },
+          height: { md: '80vh' },
           bgcolor: 'primary.main',
           flexGrow: 1,
-          maxHeight: { md: '80vh' },
           overflow: 'auto',
           pb: 2,
         }}
@@ -191,13 +178,13 @@ export default function Main() {
               borderColor: 'divider',
               mb: 2,
               '& .MuiTab-root': {
-                color: 'rgba(255, 255, 255, 0.5)',
+                color: 'text.secondary',
                 fontWeight: 'bold',
                 fontSize: '1.1rem',
                 '&.Mui-selected': {
-                  color: '#fff',
+                  color: 'text.primary',
                   borderBottom: 2,
-                  borderColor: 'primary.main',
+                  borderColor: 'info.main',
                 },
               },
             }}
@@ -209,8 +196,8 @@ export default function Main() {
           {tabValue === 0 && (
             <Box>
               <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.6, color: 'text.secondary' }}>
-                Hello there, I'm Ruben Barreiro — mostly Backend Developer; FullStack Developer when
-                really needed. Currently working at Globant.
+                Hello there, I'm Ruben Barreiro — mostly Backend Developer; FullStack Developer when really needed.
+                Currently working at Globant.
               </Typography>
 
               <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
@@ -255,10 +242,7 @@ export default function Main() {
                       {entry.role}
                     </Typography>
                     {entry.company && (
-                      <Typography
-                        component="span"
-                        sx={{ color: 'text.secondary', fontWeight: 'normal' }}
-                      >
+                      <Typography component="span" sx={{ color: 'text.secondary', fontWeight: 'normal' }}>
                         {' '}
                         @ {entry.company}
                       </Typography>
